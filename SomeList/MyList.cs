@@ -44,7 +44,8 @@ namespace SomeList
         public void Remove(int value)
         {
             Node node = Head;
-            Node temp = Tail;
+            Node temp = Head;
+            Node temp2 = Tail;
             do
             {
                 if (node.Value == value)
@@ -55,37 +56,36 @@ namespace SomeList
                         break;
                     }
                 }
-
-                if (node == Tail)
-                {
-
-                }
-                //if (node.Next.Value == value)
-                //{
-                //    while (true)
-                //    {
-                //        if (Tail == node)
-                //        {
-                //            Tail = node.Next.Next;
-
-                //            break;
-                //        }
-
-                //        Tail = Tail.Next;
-                //    }
-                //        break;
-
-                //}
-
+         
                 node = node.Next;
 
-                if (node.Next == Head)
+                if (node.Next.Value == value)
                 {
-                    Head = node;
+                    if (node.Next == Tail)
+                    {
+                        Tail = node;
+                        break;
+                    }
+
+                    while (temp != temp2)
+                    {
+                        if (temp == Head)
+                        {
+                            Tail = temp;
+                        }
+                        if (temp == node)
+                        {
+                            temp = temp.Next;
+                        }
+
+                        temp = temp.Next;
+                        Tail.Next = temp;
+                        Tail = temp;
+                    }
+                    break;
                 }
             }
             while (node != Head);
-
         }
     }
 }
